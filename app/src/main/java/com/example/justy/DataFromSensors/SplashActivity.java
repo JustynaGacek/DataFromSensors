@@ -1,12 +1,12 @@
 package com.example.justy.DataFromSensors;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private final int splashScreenTime = 5000; //in milliseconds
+    private final int splashScreenTime = 500;//5000; //in milliseconds
     Thread splashTread;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,4 +29,25 @@ public class SplashActivity extends AppCompatActivity {
         };
         splashTread.start();
     }
+//
+//    public void connectionToDatabase() {
+//        AsyncTask.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                // All your networking logic
+//                // should be here
+//                // Create URL
+//                try {
+//                    URL githubEndpoint = new URL("https://api.github.com/");
+//
+//                    // Create connection
+//                    HttpsURLConnection myConnection = (HttpsURLConnection) githubEndpoint.openConnection();
+//                }catch (IOException e){
+//
+//                }
+//
+//
+//            }
+//        });
+//    }
 }
