@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private final int splashScreenTime = 500;//5000; //in milliseconds
+    private final int splashScreenTime = 100;//5000; //in milliseconds
     Thread splashTread;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,26 +28,20 @@ public class SplashActivity extends AppCompatActivity {
             }
         };
         splashTread.start();
-    }
-//
-//    public void connectionToDatabase() {
+
 //        AsyncTask.execute(new Runnable() {
 //            @Override
 //            public void run() {
-//                // All your networking logic
-//                // should be here
 //                // Create URL
 //                try {
-//                    URL githubEndpoint = new URL("https://api.github.com/");
+//                    URL githubEndpoint = new URL("https://nervous-liger-43.localtunnel.me/home/");
 //
-//                    // Create connection
-//                    HttpsURLConnection myConnection = (HttpsURLConnection) githubEndpoint.openConnection();
-//                }catch (IOException e){
-//
+//                    HttpURLConnection myConnection = (HttpURLConnection) githubEndpoint.openConnection();
 //                }
-//
-//
+//                catch (Exception e) {
+//                    Log.d("blad", "dddd");
+//                }
 //            }
 //        });
-//    }
+    }
 }
