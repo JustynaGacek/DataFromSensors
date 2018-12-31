@@ -30,11 +30,12 @@ public class SplashActivity extends AppCompatActivity {
         };
         splashTread.start();
 
+
         new Thread(new Runnable(){
             @Override
             public void run() {
                 // Do network action in this function
-
+                GlobalVariables.avaliableDataRequest.get();
                 GlobalVariables.postRequest.post("day", "Gmina Skawina, Zelczyna");
 //                PostRequest postRequest = new PostRequest();
 //                postRequest.post("day", "Gmina Skawina, Zelczyna");
@@ -50,19 +51,5 @@ public class SplashActivity extends AppCompatActivity {
             }
         }).start();
 
-//        AsyncTask.execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                // Create URL
-//                try {
-//                    URL githubEndpoint = new URL("https://nervous-liger-43.localtunnel.me/home/");
-//
-//                    HttpURLConnection myConnection = (HttpURLConnection) githubEndpoint.openConnection();
-//                }
-//                catch (Exception e) {
-//                    Log.d("blad", "dddd");
-//                }
-//            }
-//        });
     }
 }

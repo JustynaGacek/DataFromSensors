@@ -51,6 +51,8 @@ public class MainViewActivity extends AppCompatActivity
         toggle.syncState();
 
 
+        GlobalVariables.avaliableDataRequest.parseJsonToVariables();
+        GlobalVariables.avaliableDataRequest.printAll();
         drawChart();
 
 //        final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -122,7 +124,6 @@ public class MainViewActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -39,4 +39,9 @@ public class ParseJSON {
         return valuesArray;
     }
 
+    void clearArrays() {
+        timeArray.clear();
+        valuesArray.clear();
+    }
+
 }
