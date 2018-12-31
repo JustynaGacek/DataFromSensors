@@ -20,6 +20,46 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.861" />
+        app:layout_constraintVertical_bias="0.43" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayoutId"
+        android:layout_width="368dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/chart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/tabDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Day" />
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/tabWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Week" />
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/tabMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Month" />
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/tabYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Year" />
+    </android.support.design.widget.TabLayout>
 
 </android.support.constraint.ConstraintLayout>

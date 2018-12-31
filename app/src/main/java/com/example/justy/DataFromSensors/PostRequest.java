@@ -13,10 +13,9 @@ import okhttp3.RequestBody;
 public class PostRequest {
 
     private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    final String url = "https://station-controll-1.localtunnel.me/request_data/";
 
     private OkHttpClient client = new OkHttpClient();
-
-    final String url = "https://station-controll-123.localtunnel.me/request_data/";
 
     private static JSONArray responseArray;
 

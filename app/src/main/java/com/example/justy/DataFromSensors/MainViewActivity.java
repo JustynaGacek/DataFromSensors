@@ -23,7 +23,8 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
-import java.sql.Timestamp;
+import org.json.JSONException;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,6 +49,7 @@ public class MainViewActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
 
         drawChart();
 
@@ -172,70 +174,22 @@ public class MainViewActivity extends AppCompatActivity
     public void drawChart(){
 
         LineChart chart = (LineChart) findViewById(R.id.chart);
-//        chart.setOnChartGestureListener((OnChartGestureListener) MainViewActivity.this);
-//        chart.setOnChartValueSelectedListener((OnChartValueSelectedListener) MainViewActivity.this);
 
         chart.setDragEnabled(true);
         chart.setScaleEnabled(true);
 
-        ArrayList<Timestamp> time = new ArrayList<>();
-
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 00:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 01:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 02:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 03:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 04:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 05:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 06:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 07:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 08:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 09:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 10:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 11:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 12:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 13:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 14:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 15:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 16:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 17:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 18:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 19:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 20:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 21:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 22:00:00.0"));
-        time.add(java.sql.Timestamp.valueOf("2018-12-26 23:00:00.0"));
-
-        ArrayList<Float> values = new ArrayList<>();
-        values.add(10.2f);
-        values.add(10.3f);
-        values.add(10.8f);
-        values.add(11.0f);
-        values.add(11.4f);
-        values.add(11.5f);
-        values.add(12.2f);
-        values.add(12.1f);
-        values.add(12.4f);
-        values.add(13.8f);
-        values.add(13.6f);
-        values.add(13.2f);
-        values.add(14.1f);
-        values.add(14.3f);
-        values.add(14.5f);
-        values.add(14.6f);
-        values.add(15.3f);
-        values.add(15.2f);
-        values.add(15.5f);
-        values.add(16.6f);
-        values.add(16.7f);
-        values.add(15.2f);
-        values.add(14.5f);
-        values.add(13.3f);
-
-
         ArrayList<Entry> entries = new ArrayList<>();
-        for(int i=0; i<time.size(); i++){
-            entries.add(new Entry(time.get(i).getTime(), GlobalVariables.temperature.get(i)));
+        try {
+            ParseJSON parseJSON = new ParseJSON();
+            parseJSON.getDataFromJSON(GlobalVariables.postRequest.getResponseArray(), "Temperatura");
+            for(int i=0; i<parseJSON.getTimeArray().size(); i++){
+                entries.add(new Entry(parseJSON.getTimeArray().get(i), parseJSON.getFloatArray().get(i)));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
 
         LineDataSet set = new LineDataSet(entries, "Customized values");
         set.setFillAlpha(110);
@@ -381,3 +335,56 @@ class CustomMarkerView extends MarkerView
 //    String createJsonToSend(String timeRange, String station){
 //        return "{\"Time\": \"" + timeRange + "\", \"Station\":\"" + station + "\"}";
 //    }
+//
+//    ArrayList<Timestamp> time = new ArrayList<>();
+//
+//        time.add(java.sql.Timestamp.valueOf("2018-12-26 00:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 01:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 02:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 03:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 04:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 05:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 06:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 07:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 08:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 09:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 10:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 11:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 12:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 13:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 14:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 15:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 16:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 17:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 18:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 19:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 20:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 21:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 22:00:00.0"));
+//                time.add(java.sql.Timestamp.valueOf("2018-12-26 23:00:00.0"));
+//
+//                ArrayList<Float> values = new ArrayList<>();
+//        values.add(10.2f);
+//        values.add(10.3f);
+//        values.add(10.8f);
+//        values.add(11.0f);
+//        values.add(11.4f);
+//        values.add(11.5f);
+//        values.add(12.2f);
+//        values.add(12.1f);
+//        values.add(12.4f);
+//        values.add(13.8f);
+//        values.add(13.6f);
+//        values.add(13.2f);
+//        values.add(14.1f);
+//        values.add(14.3f);
+//        values.add(14.5f);
+//        values.add(14.6f);
+//        values.add(15.3f);
+//        values.add(15.2f);
+//        values.add(15.5f);
+//        values.add(16.6f);
+//        values.add(16.7f);
+//        values.add(15.2f);
+//        values.add(14.5f);
+//        values.add(13.3f);
