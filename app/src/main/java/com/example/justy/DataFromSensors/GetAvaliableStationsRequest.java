@@ -38,7 +38,6 @@ public class GetAvaliableStationsRequest {
             String responseAfterRemoveBackslash = responseString.replace("\\\"", "\"");
             responseAfterRemoveBackslash = responseAfterRemoveBackslash.substring(1, responseAfterRemoveBackslash.length() - 1);
             avaliableStationsJSON = new JSONArray(responseAfterRemoveBackslash);
-//            System.out.println(avaliableStationsJSON);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
