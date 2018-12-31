@@ -35,8 +35,9 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // Do network action in this function
+                GlobalVariables.avaliableStationsRequest.get();
                 GlobalVariables.avaliableDataRequest.get();
-                GlobalVariables.postRequest.post("day", "Gmina Skawina, Zelczyna");
+                GlobalVariables.postRequest.post("week", "Gmina Skawina, Zelczyna");
 //                PostRequest postRequest = new PostRequest();
 //                postRequest.post("day", "Gmina Skawina, Zelczyna");
 ////                System.out.println(postRequest.getResponseArray());

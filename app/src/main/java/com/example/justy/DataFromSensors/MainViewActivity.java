@@ -50,75 +50,13 @@ public class MainViewActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        GlobalVariables.avaliableStationsRequest.parseJsonToVariables();
+        GlobalVariables.avaliableStationsRequest.printAll();
 
         GlobalVariables.avaliableDataRequest.parseJsonToVariables();
         GlobalVariables.avaliableDataRequest.printAll();
+
         drawChart();
-
-//        final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-//
-//        OkHttpClient client = new OkHttpClient();
-//
-//        String url = "https://green-earwig-99.localtunnel.me/request_data/";
-//        String json = "{\"Time\": \"month\"}";
-//
-//        RequestBody body = RequestBody.create(JSON, json);
-//
-//        Request request = new Request.Builder()
-//                    .url(url)
-//                    .post(body)
-//                    .build();
-//
-//        client.newCall(request).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, final Response response) throws IOException {
-//                if(response.isSuccessful()){
-//                    final String myResponse = response.body().string();
-//
-//                    System.out.println("tuuuuuuuuuu");
-//
-//                            //System.out.println(myResponse.replace("\\\"", "\""));
-//
-//                     try {
-//
-//                         String afterRemove = myResponse.replace("\\\"", "\"");
-//                         afterRemove = afterRemove.substring(1, afterRemove.length()-1);
-//                         JSONArray ja = new JSONArray(afterRemove);
-//                         System.out.println(ja);
-//
-//                     } catch (JSONException e) {
-//                         e.printStackTrace();
-//                         Log.e("JSON Parser", "Error parsing data " + e.toString());
-//                     }
-//
-//                    }
-//            }
-//        });
-
-//        new Thread(new Runnable(){
-//            @Override
-//            public void run() {
-//                // Do network action in this function
-//
-//                PostRequest postRequest = new PostRequest();
-//                postRequest.post("day", "Gmina Skawina, Zelczyna");
-////                System.out.println(postRequest.getResponseArray());
-//
-//                try {
-//                    ParseJSON parseJSON = new ParseJSON();
-//                    parseJSON.parseJson(postRequest.getResponseArray());
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-////
-//            }
-//        }).start();
-
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
