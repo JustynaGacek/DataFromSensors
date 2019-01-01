@@ -36,6 +36,9 @@ public class MainViewActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private OkHttpClient client;
+    private int amountOfColumns;
+    private ArrayList<String> columnsNames;
+    private Menu newMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +58,20 @@ public class MainViewActivity extends AppCompatActivity
 
         GlobalVariables.avaliableDataRequest.parseJsonToVariables();
         GlobalVariables.avaliableDataRequest.printAll();
+        System.out.println("tuuuuuuu");
+        columnsNames = GlobalVariables.avaliableDataRequest.getAvaliableColumnsNames();
+        amountOfColumns = GlobalVariables.avaliableDataRequest.getAvaliableColumnsNames().size();
 
-        drawChart();
+//        drawChart("PM10");
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        newMenu = navigationView.getMenu();
+        newMenu.clear();
+        for(int i=0; i<amountOfColumns; i++){
+            newMenu.add(0, i, Menu.NONE, columnsNames.get(i));
+        }
+
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -91,18 +103,10 @@ public class MainViewActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        for(int i=0; i<amountOfColumns; i++){
+            if(newMenu.getItem(i).getItemId() == id){
+                drawChart(columnsNames.get(i));
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -110,7 +114,7 @@ public class MainViewActivity extends AppCompatActivity
         return true;
     }
 
-    public void drawChart(){
+    public void drawChart(String columnName){
 
         LineChart chart = (LineChart) findViewById(R.id.chart);
 
@@ -120,7 +124,7 @@ public class MainViewActivity extends AppCompatActivity
         ArrayList<Entry> entries = new ArrayList<>();
         try {
             ParseJSON parseJSON = new ParseJSON();
-            parseJSON.getDataFromJSON(GlobalVariables.postRequest.getResponseArray(), "Temperatura");
+            parseJSON.getDataFromJSON(GlobalVariables.postRequest.getResponseArray(), columnName);
             for(int i=0; i<parseJSON.getTimeArray().size(); i++){
                 entries.add(new Entry(parseJSON.getTimeArray().get(i), parseJSON.getFloatArray().get(i)));
             }

@@ -51,29 +51,27 @@ public class GetAvailableDataRequest {
     }
 
     public void parseJsonToVariables(){
-        try {
-            JSONArray avaliableDataJSONArray = (JSONArray) avaliableDataJSON.get("columns");
-            for (int i=0; i<avaliableDataJSONArray.length(); i++) {
-                if(i==0) {
-                    stationColumnName = avaliableDataJSONArray.getString(i);
-                }
-                else if(i==1) {
-                    idColumnName = avaliableDataJSONArray.getString(i);
-                }
-                else if(i==2) {
-                    timeMeasurementColumnName = avaliableDataJSONArray.getString(i);
-                }
-                else {
-                    if(!avaliableDataJSONArray.getString(i).contains("_jednostka")) {
-                        avaliableColumnsNames.add(avaliableDataJSONArray.getString(i));
-                    }
-                    else {
-                        avaliableColumnsUnitsNames.add(avaliableDataJSONArray.getString(i));
+        if(avaliableDataJSON!=null) {
+            try {
+                JSONArray avaliableDataJSONArray = (JSONArray) avaliableDataJSON.get("columns");
+                for (int i = 0; i < avaliableDataJSONArray.length(); i++) {
+                    if (i == 0) {
+                        stationColumnName = avaliableDataJSONArray.getString(i);
+                    } else if (i == 1) {
+                        idColumnName = avaliableDataJSONArray.getString(i);
+                    } else if (i == 2) {
+                        timeMeasurementColumnName = avaliableDataJSONArray.getString(i);
+                    } else {
+                        if (!avaliableDataJSONArray.getString(i).contains("_jednostka")) {
+                            avaliableColumnsNames.add(avaliableDataJSONArray.getString(i));
+                        } else {
+                            avaliableColumnsUnitsNames.add(avaliableDataJSONArray.getString(i));
+                        }
                     }
                 }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
 

@@ -46,14 +46,16 @@ public class GetAvaliableStationsRequest {
     }
 
     public void parseJsonToVariables(){
-        for (int i = 0; i < avaliableStationsJSON.length(); i++) {
-            try {
-                JSONObject object = avaliableStationsJSON.getJSONObject(i);
-                stationsIds.add(object.getInt("pk"));
-                JSONObject objectFields = (JSONObject) object.get("fields");
-                stationsNames.add(objectFields.getString("Name"));
-            } catch (JSONException e) {
-                e.printStackTrace();
+        if(avaliableStationsJSON!=null) {
+            for (int i = 0; i < avaliableStationsJSON.length(); i++) {
+                try {
+                    JSONObject object = avaliableStationsJSON.getJSONObject(i);
+                    stationsIds.add(object.getInt("pk"));
+                    JSONObject objectFields = (JSONObject) object.get("fields");
+                    stationsNames.add(objectFields.getString("Name"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
