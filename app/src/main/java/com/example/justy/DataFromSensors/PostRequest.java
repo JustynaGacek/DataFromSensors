@@ -18,7 +18,7 @@ public class PostRequest {
 
     private OkHttpClient client = new OkHttpClient();
 
-    private static JSONArray responseArray;
+    private JSONArray responseArray;
 
     void post(String timeRange, String station) {
         System.out.println("Post start");

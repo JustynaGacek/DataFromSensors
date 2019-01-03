@@ -4,10 +4,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import org.json.JSONArray;
+
 public class SplashActivity extends AppCompatActivity {
 
-    private final int splashScreenTime = 15000;//5000; //in milliseconds
+    private final int splashScreenTime = 20000;//5000; //in milliseconds
     Thread splashTread;
+
+//    public static PostRequest postRequestPerDay;
+//
+//    public static PostRequest postRequestPerWeek;
+//
+//    public static PostRequest postRequestPerMonth;
+//
+//    public static PostRequest postRequestPerYear;
+
+    public static JSONArray jsonArrayDay;
+    public static JSONArray jsonArrayWeek;
+    public static JSONArray jsonArrayMonth;
+    public static JSONArray jsonArrayYear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +46,7 @@ public class SplashActivity extends AppCompatActivity {
         };
         splashTread.start();
 
-//
+
 
         new Thread(new Runnable(){
             @Override
@@ -52,14 +67,38 @@ public class SplashActivity extends AppCompatActivity {
 
 
                 try {
-                    GlobalVariables.postRequestPerWeek.post("week", "Krakow, ul. Kujawska 1");
-                    GlobalVariables.postRequestPerDay.post("day", "Krakow, ul. Kujawska 1");
-                    //sleep(2000);
+                    PostRequest postRequestPerMonth = new PostRequest();
+                    postRequestPerMonth.post("month", "Krakow, ul. Kujawska 1");
+                    jsonArrayMonth = postRequestPerMonth.getResponseArray();
+                    System.out.println("miesiac");
+                    System.out.println(jsonArrayDay);
 
-                    //sleep(2000);
-                    GlobalVariables.postRequestPerMonth.post("month", "Krakow, ul. Kujawska 1");
-                    //sleep(2000);
-                    GlobalVariables.postRequestPerYear.post("year", "Krakow, ul. Kujawska 1");
+                    PostRequest postRequestPerYear = new PostRequest();
+                    postRequestPerYear.post("year", "Krakow, ul. Kujawska 1");
+                    jsonArrayYear = postRequestPerYear.getResponseArray();
+                    System.out.println("rok");
+                    System.out.println(jsonArrayYear);
+
+                    PostRequest postRequestPerWeek = new PostRequest();
+                    postRequestPerWeek.post("week", "Krakow, ul. Kujawska 1");
+                    jsonArrayWeek = postRequestPerWeek.getResponseArray();
+                    System.out.println("tydzien");
+                    System.out.println(jsonArrayWeek);
+
+                    PostRequest postRequestPerDay = new PostRequest();
+                    postRequestPerDay.post("day", "Krakow, ul. Kujawska 1");
+                    jsonArrayDay = postRequestPerDay.getResponseArray();
+                    System.out.println("dzien");
+                    System.out.println(jsonArrayDay);
+
+//                    System.out.println("miesiac");
+//                    System.out.println(jsonArrayMonth);
+//                    System.out.println("rok");
+//                    System.out.println(jsonArrayYear);
+//                    System.out.println("tydzien");
+//                    System.out.println(jsonArrayWeek);
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

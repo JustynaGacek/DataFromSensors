@@ -14,6 +14,7 @@ public class ParseJSON {
     ParseJSON(){
         timeArray = new ArrayList<>();
         valuesArray = new ArrayList<>();
+        System.out.println("Tworze parser");
     }
 
     void getDataFromJSON(JSONArray jsonArray, String columnName) throws JSONException {

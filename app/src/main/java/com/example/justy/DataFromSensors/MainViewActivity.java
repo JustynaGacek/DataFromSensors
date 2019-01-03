@@ -24,6 +24,7 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.text.SimpleDateFormat;
@@ -40,6 +41,17 @@ public class MainViewActivity extends AppCompatActivity
     private int amountOfColumns;
     private ArrayList<String> columnsNames;
     private Menu newMenu;
+    private ParseJSON parseJson;
+
+    private JSONArray jsonArrayDay;
+    private JSONArray jsonArrayWeek;
+    private JSONArray jsonArrayMonth;
+    private JSONArray jsonArrayYear;
+
+    private ParseJSON parseJsonForDay;
+    private ParseJSON parseJsonForWeek;
+    private ParseJSON parseJsonForMonth;
+    private ParseJSON parseJsonForYear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +66,6 @@ public class MainViewActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-
         GlobalVariables.avaliableStationsRequest.parseJsonToVariables();
         GlobalVariables.avaliableStationsRequest.printAll();
 
@@ -65,6 +76,30 @@ public class MainViewActivity extends AppCompatActivity
         amountOfColumns = GlobalVariables.avaliableDataRequest.getAvaliableColumnsNames().size();
 
         GlobalVariables.currentColumn = columnsNames.get(0);
+
+
+        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        System.out.println("dzien");
+        jsonArrayDay = SplashActivity.jsonArrayDay;
+        parseJsonForDay = new ParseJSON();
+        System.out.println(jsonArrayDay);
+
+        System.out.println("tydzien");
+        jsonArrayWeek = SplashActivity.jsonArrayWeek;
+        parseJsonForWeek = new ParseJSON();
+        System.out.println(jsonArrayWeek);
+
+        System.out.println("miesiac");
+        jsonArrayMonth = SplashActivity.jsonArrayMonth;
+        parseJsonForMonth = new ParseJSON();
+        System.out.println(jsonArrayMonth);
+
+        System.out.println("rok");
+        jsonArrayYear = SplashActivity.jsonArrayYear;
+        parseJsonForYear = new ParseJSON();
+        System.out.println(jsonArrayYear);
+
+        parseJson = new ParseJSON();
 
         //drawChart("PM10");
 //        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPagerId);
@@ -82,39 +117,58 @@ public class MainViewActivity extends AppCompatActivity
 //                MainActivity.this.getTabContent(tabId);
                 switch (tabId) {
                     case "Day":
-                        drawChart(GlobalVariables.currentColumn, GlobalVariables.postRequestPerDay);
+                        System.out.println("klikam dzien xxxxxxxxxxxxxxxxxxxxxxxx");
+                        System.out.println(jsonArrayDay);
+                        drawChartForDay(GlobalVariables.currentColumn);
+                        break;
+
                     case "Week":
-                        drawChart(GlobalVariables.currentColumn, GlobalVariables.postRequestPerWeek);
+                        System.out.println("klikam tydzien xxxxxxxxxxxxxxxxxxxxxxxx");
+                        System.out.println(jsonArrayWeek);
+                        drawChartForWeek(GlobalVariables.currentColumn);
+                        break;
+
                     case "Month":
-                        drawChart(GlobalVariables.currentColumn, GlobalVariables.postRequestPerMonth);
+                        System.out.println("klikam miesiac xxxxxxxxxxxxxxxxxxxxxxxx");
+                        System.out.println(jsonArrayMonth);
+                        drawChartForMonth(GlobalVariables.currentColumn);
+                        break;
+
                     case "Year":
-                        drawChart(GlobalVariables.currentColumn, GlobalVariables.postRequestPerYear);
+                        System.out.println("klikam rok xxxxxxxxxxxxxxxxxxxxxxxx");
+                        System.out.println(jsonArrayYear);
+                        drawChartForYear(GlobalVariables.currentColumn);
+                        break;
+
+
                     default:
-                }
-            }
+                        System.out.println("kupa xxxxxxxxxxxxxxxxxxxxxxxx");
+                        break;
+    }
+}
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {}
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {}
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
-        });
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {}
+    });
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         newMenu = navigationView.getMenu();
         newMenu.clear();
         for(int i=0; i<amountOfColumns; i++){
-            newMenu.add(0, i, Menu.NONE, columnsNames.get(i));
+        newMenu.add(0, i, Menu.NONE, columnsNames.get(i));
         }
 
         navigationView.setNavigationItemSelectedListener(this);
-    }
+        }
 
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_view, menu);
         return true;
@@ -148,7 +202,7 @@ public class MainViewActivity extends AppCompatActivity
                 TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutId);
                 TabLayout.Tab tab = tabLayout.getTabAt(0);
                 tab.select();
-                drawChart(columnsNames.get(i), GlobalVariables.postRequestPerDay);
+//                drawChart(columnsNames.get(i), SplashActivity.jsonArrayDay);
 //                DayFragmenter dayFragmenter = new DayFragmenter();
 //                FragmentManager fragmentManager = getSupportFragmentManager();
 //                fragmentManager.beginTransaction().attach(dayFragmenter).commit();
@@ -160,21 +214,25 @@ public class MainViewActivity extends AppCompatActivity
         return true;
     }
 
-    public void drawChart(String columnName, PostRequest postRequest){
+    public void drawChartForDay(String columnName){
+
+        System.out.println("Funkcja rysujaca wykres dzien");
 
         LineChart chart = (LineChart) findViewById(R.id.chart);
 
         chart.setDragEnabled(true);
         chart.setScaleEnabled(true);
 
+//        System.out.println("Rysuje wykres ilosc danych");
+//        System.out.println(postRequest.getResponseArray().length());
         ArrayList<Entry> entries = new ArrayList<>();
         try {
-            ParseJSON parseJSON = new ParseJSON();
-            parseJSON.getDataFromJSON(postRequest.getResponseArray(), columnName);
-            for(int i=0; i<parseJSON.getTimeArray().size(); i++){
-                entries.add(new Entry(parseJSON.getTimeArray().get(i), parseJSON.getFloatArray().get(i)));
+            parseJsonForDay.clearArrays();
+            parseJsonForDay.getDataFromJSON(jsonArrayDay, columnName);
+            for(int i=0; i< parseJsonForDay.getTimeArray().size(); i++){
+                entries.add(new Entry(parseJsonForDay.getTimeArray().get(i), parseJsonForDay.getFloatArray().get(i)));
             }
-
+//
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -199,6 +257,145 @@ public class MainViewActivity extends AppCompatActivity
         chart.setData(data);
         chart.invalidate();
         chart.animateX(1000);
+
+    }
+
+    public void drawChartForWeek(String columnName){
+
+        System.out.println("Funkcja rysujaca wykres tydzien");
+
+        LineChart chart = (LineChart) findViewById(R.id.chart);
+
+        chart.setDragEnabled(true);
+        chart.setScaleEnabled(true);
+
+//        System.out.println("Rysuje wykres ilosc danych");
+//        System.out.println(postRequest.getResponseArray().length());
+        ArrayList<Entry> entries = new ArrayList<>();
+        try {
+            parseJsonForWeek.clearArrays();
+            parseJsonForWeek.getDataFromJSON(jsonArrayWeek, columnName);
+            for(int i=0; i< parseJsonForWeek.getTimeArray().size(); i++){
+                entries.add(new Entry(parseJsonForWeek.getTimeArray().get(i), parseJsonForWeek.getFloatArray().get(i)));
+            }
+//
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        LineDataSet set = new LineDataSet(entries, "Customized values");
+        setChartProperties(set);
+
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set);
+
+        LineData data = new LineData((dataSets));
+
+//        data.setHighlightEnabled(true);
+
+        XAxis xAxis = chart.getXAxis();
+        generateXAxis(xAxis);
+        xAxis.setValueFormatter(new TimeAxisValueFormatter());
+
+        chart.setDrawMarkers(true);
+        chart.setMarker(markerView(getApplicationContext(), chart.getWidth()));
+        chart.setData(data);
+        chart.invalidate();
+        chart.animateX(1000);
+
+    }
+
+    public void drawChartForMonth(String columnName){
+
+        System.out.println("Funkcja rysujaca wykres miesiac");
+
+        LineChart chart = (LineChart) findViewById(R.id.chart);
+
+        chart.setDragEnabled(true);
+        chart.setScaleEnabled(true);
+
+//        System.out.println("Rysuje wykres ilosc danych");
+//        System.out.println(postRequest.getResponseArray().length());
+        ArrayList<Entry> entries = new ArrayList<>();
+        try {
+            parseJsonForMonth.clearArrays();
+            parseJsonForMonth.getDataFromJSON(jsonArrayMonth, columnName);
+            for(int i=0; i< parseJsonForMonth.getTimeArray().size(); i++){
+                entries.add(new Entry(parseJsonForMonth.getTimeArray().get(i), parseJsonForMonth.getFloatArray().get(i)));
+            }
+//
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        LineDataSet set = new LineDataSet(entries, "Customized values");
+        setChartProperties(set);
+
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set);
+
+        LineData data = new LineData((dataSets));
+
+//        data.setHighlightEnabled(true);
+
+        XAxis xAxis = chart.getXAxis();
+        generateXAxis(xAxis);
+        xAxis.setValueFormatter(new TimeAxisValueFormatter());
+
+        chart.setDrawMarkers(true);
+        chart.setMarker(markerView(getApplicationContext(), chart.getWidth()));
+        chart.setData(data);
+        chart.invalidate();
+        chart.animateX(1000);
+
+    }
+
+    public void drawChartForYear(String columnName){
+
+        System.out.println("Funkcja rysujaca wykres rok");
+
+        LineChart chart = (LineChart) findViewById(R.id.chart);
+
+        chart.setDragEnabled(true);
+        chart.setScaleEnabled(true);
+
+//        System.out.println("Rysuje wykres ilosc danych");
+//        System.out.println(postRequest.getResponseArray().length());
+        ArrayList<Entry> entries = new ArrayList<>();
+        try {
+            parseJsonForYear.clearArrays();
+            parseJsonForYear.getDataFromJSON(jsonArrayYear, columnName);
+            for(int i=0; i< parseJsonForYear.getTimeArray().size(); i++){
+                entries.add(new Entry(parseJsonForYear.getTimeArray().get(i), parseJsonForYear.getFloatArray().get(i)));
+            }
+//
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        LineDataSet set = new LineDataSet(entries, "Customized values");
+        setChartProperties(set);
+
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set);
+
+        LineData data = new LineData((dataSets));
+
+//        data.setHighlightEnabled(true);
+
+        XAxis xAxis = chart.getXAxis();
+        generateXAxis(xAxis);
+        xAxis.setValueFormatter(new TimeAxisValueFormatter());
+
+        chart.setDrawMarkers(true);
+        chart.setMarker(markerView(getApplicationContext(), chart.getWidth()));
+        chart.setData(data);
+        chart.invalidate();
+        chart.animateX(1000);
+
     }
 
     void setChartProperties(LineDataSet set){
