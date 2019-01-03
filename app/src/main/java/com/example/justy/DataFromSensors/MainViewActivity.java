@@ -3,6 +3,7 @@ package com.example.justy.DataFromSensors;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -53,6 +54,7 @@ public class MainViewActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
         GlobalVariables.avaliableStationsRequest.parseJsonToVariables();
         GlobalVariables.avaliableStationsRequest.printAll();
 
@@ -62,7 +64,41 @@ public class MainViewActivity extends AppCompatActivity
         columnsNames = GlobalVariables.avaliableDataRequest.getAvaliableColumnsNames();
         amountOfColumns = GlobalVariables.avaliableDataRequest.getAvaliableColumnsNames().size();
 
-//        drawChart("PM10");
+        GlobalVariables.currentColumn = columnsNames.get(0);
+
+        //drawChart("PM10");
+//        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPagerId);
+//        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), this);
+//        viewPager.setAdapter(adapter);
+//        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutId);
+//        tabLayout.setupWithViewPager(viewPager);
+
+        TabLayout tabLayout = (TabLayout)findViewById(R.id.tabLayoutId);
+
+        tabLayout.addOnTabSelectedListener( new TabLayout.OnTabSelectedListener(){
+            public void  onTabSelected(TabLayout.Tab tab){
+                String tabId = (String)tab.getText();
+                System.out.println(tabId);
+//                MainActivity.this.getTabContent(tabId);
+                switch (tabId) {
+                    case "Day":
+                        drawChart(GlobalVariables.currentColumn, GlobalVariables.postRequestPerDay);
+                    case "Week":
+                        drawChart(GlobalVariables.currentColumn, GlobalVariables.postRequestPerWeek);
+                    case "Month":
+                        drawChart(GlobalVariables.currentColumn, GlobalVariables.postRequestPerMonth);
+                    case "Year":
+                        drawChart(GlobalVariables.currentColumn, GlobalVariables.postRequestPerYear);
+                    default:
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -74,6 +110,8 @@ public class MainViewActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -105,7 +143,15 @@ public class MainViewActivity extends AppCompatActivity
 
         for(int i=0; i<amountOfColumns; i++){
             if(newMenu.getItem(i).getItemId() == id){
-                drawChart(columnsNames.get(i));
+                GlobalVariables.currentColumn = columnsNames.get(i);
+                System.out.println(GlobalVariables.currentColumn);
+                TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutId);
+                TabLayout.Tab tab = tabLayout.getTabAt(0);
+                tab.select();
+                drawChart(columnsNames.get(i), GlobalVariables.postRequestPerDay);
+//                DayFragmenter dayFragmenter = new DayFragmenter();
+//                FragmentManager fragmentManager = getSupportFragmentManager();
+//                fragmentManager.beginTransaction().attach(dayFragmenter).commit();
             }
         }
 
@@ -114,7 +160,7 @@ public class MainViewActivity extends AppCompatActivity
         return true;
     }
 
-    public void drawChart(String columnName){
+    public void drawChart(String columnName, PostRequest postRequest){
 
         LineChart chart = (LineChart) findViewById(R.id.chart);
 
@@ -124,7 +170,7 @@ public class MainViewActivity extends AppCompatActivity
         ArrayList<Entry> entries = new ArrayList<>();
         try {
             ParseJSON parseJSON = new ParseJSON();
-            parseJSON.getDataFromJSON(GlobalVariables.postRequest.getResponseArray(), columnName);
+            parseJSON.getDataFromJSON(postRequest.getResponseArray(), columnName);
             for(int i=0; i<parseJSON.getTimeArray().size(); i++){
                 entries.add(new Entry(parseJSON.getTimeArray().get(i), parseJSON.getFloatArray().get(i)));
             }
@@ -135,33 +181,17 @@ public class MainViewActivity extends AppCompatActivity
 
 
         LineDataSet set = new LineDataSet(entries, "Customized values");
-        set.setFillAlpha(110);
-        set.setLineWidth(3f);
-        set.setValueTextSize(10f);
-        set.setDrawCircles(false);
-        set.setDrawValues(false);
-        set.setHighlightEnabled(true);
-        set.setHighlightEnabled(true);
-        //set.setValueTextColor(Color.GREEN);
+        setChartProperties(set);
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(set);
 
         LineData data = new LineData((dataSets));
 
-        data.setHighlightEnabled(true);
+//        data.setHighlightEnabled(true);
 
         XAxis xAxis = chart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setTextSize(10f);
-        xAxis.setDrawAxisLine(true);
-        xAxis.setDrawGridLines(false);
-        xAxis.setLabelRotationAngle(-45f);
-        xAxis.setLabelCount(12, true);
-
-//        chart.getAxisRight().setEnabled(false);
-
-
+        generateXAxis(xAxis);
         xAxis.setValueFormatter(new TimeAxisValueFormatter());
 
         chart.setDrawMarkers(true);
@@ -169,9 +199,25 @@ public class MainViewActivity extends AppCompatActivity
         chart.setData(data);
         chart.invalidate();
         chart.animateX(1000);
+    }
 
-///////////////////////////////////////////////////////////////////////////////////////////
+    void setChartProperties(LineDataSet set){
+        set.setFillAlpha(110);
+        set.setLineWidth(3f);
+        set.setValueTextSize(10f);
+        set.setDrawCircles(false);
+        set.setDrawValues(false);
+        set.setHighlightEnabled(true);
+        //set.setValueTextColor(Color.GREEN);
+    }
 
+    void generateXAxis(XAxis xAxis){
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTextSize(10f);
+        xAxis.setDrawAxisLine(true);
+        xAxis.setDrawGridLines(false);
+        xAxis.setLabelRotationAngle(-45f);
+        xAxis.setLabelCount(12, true);
     }
 
     public CustomMarkerView markerView(Context context, int width)

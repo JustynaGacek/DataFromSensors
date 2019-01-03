@@ -17,7 +17,9 @@ public class ParseJSON {
     }
 
     void getDataFromJSON(JSONArray jsonArray, String columnName) throws JSONException {
+
         if(jsonArray!=null) {
+            System.out.print("Parsuje");
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject object = jsonArray.getJSONObject(i);
                 JSONObject objectFields = (JSONObject) object.get("fields");
@@ -25,9 +27,9 @@ public class ParseJSON {
                 String timeValue = objectFields.getString("Czas_pomiaru").replace('T', ' ');
                 if (!columnValue.equals("null") && !timeValue.equals("null")) {
                     timeArray.add(java.sql.Timestamp.valueOf(timeValue.replace('T', ' ').replace("Z", "")).getTime());
-//                    System.out.println(timeArray.get(i));
+                    //System.out.println(timeArray.get(i));
                     valuesArray.add(Float.parseFloat(columnValue));
-//                    System.out.println(valuesArray.get(i));
+                    //System.out.println(valuesArray.get(i));
                 }
             }
         }

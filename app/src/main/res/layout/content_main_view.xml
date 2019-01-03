@@ -35,34 +35,36 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        app:tabMode="fixed" >
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Day" />
+            android:text="@string/dayTabName" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabWeek"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Week" />
+            android:text="@string/weekTabName" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Month" />
+            android:text="@string/monthTabName" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabYear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Year" />
+            android:text="@string/yearTabName" />
     </android.support.design.widget.TabLayout>
 
     <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerId"
         android:layout_width="372dp"
         android:layout_height="357dp"
         android:layout_marginStart="8dp"
