@@ -24,6 +24,9 @@ public class SplashActivity extends AppCompatActivity {
     public static JSONArray jsonArrayMonth;
     public static JSONArray jsonArrayYear;
 
+    public static GetAvaliableStationsRequest avaliableStationsRequest = new GetAvaliableStationsRequest();
+    public static GetAvailableDataRequest avaliableDataRequest = new GetAvailableDataRequest();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +56,8 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // Do network action in this function
-                GlobalVariables.avaliableStationsRequest.get();
-                GlobalVariables.avaliableDataRequest.get();
+                avaliableStationsRequest.get();
+                avaliableDataRequest.get();
 
 //                PostRequest postRequestPerDay = new PostRequest();
 //                postRequestPerDay.post("day", "Gmina Skawina, Zelczyna");

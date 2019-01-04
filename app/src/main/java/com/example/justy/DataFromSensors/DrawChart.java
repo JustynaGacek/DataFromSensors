@@ -38,10 +38,10 @@ public class DrawChart {
             for(int i=0; i<parseJSON.getTimeArray().size(); i++){
                 if(i==0) { GlobalVariables.currentTimestamp = parseJSON.getTimeArray().get(i); }
                 entries.add(new Entry(parseJSON.getTimeArray().get(i) - GlobalVariables.currentTimestamp, parseJSON.getFloatArray().get(i)));
-                System.out.print(entries.get(i).getX());
-                System.out.print(" ");
-                System.out.print(entries.get(i).getY());
-                System.out.println();
+//                System.out.print(entries.get(i).getX());
+//                System.out.print(" ");
+//                System.out.print(entries.get(i).getY());
+//                System.out.println();
             }
 
         } catch (JSONException e) {
