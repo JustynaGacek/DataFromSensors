@@ -7,27 +7,37 @@
     tools:context=".DayFragmenter">
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/dayTabName" />
+
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/chartDay"
-            android:layout_width="342dp"
-            android:layout_height="463dp"
+        <TextView
+            android:layout_width="341dp"
+            android:layout_height="30dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:text="@string/dayTabName"
+            app:layout_constraintBottom_toTopOf="@+id/chartDay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.481"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chartDay"
+            android:layout_width="342dp"
+            android:layout_height="291dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 

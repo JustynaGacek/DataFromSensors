@@ -17,5 +17,9 @@ public class GlobalVariables {
 
     public static String currentColumn;
 
+    public static Long currentTimestamp;
+
+    public static int currentTab;
+
 
 }

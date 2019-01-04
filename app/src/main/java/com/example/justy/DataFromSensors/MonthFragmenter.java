@@ -1,42 +1,37 @@
-//package com.example.justy.DataFromSensors;
-//
-//
-//import android.os.Bundle;
-//import android.support.annotation.Nullable;
-//import android.support.v4.app.Fragment;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//
-//import com.github.mikephil.charting.charts.LineChart;
-//import com.github.mikephil.charting.components.XAxis;
-//import com.github.mikephil.charting.data.Entry;
-//import com.github.mikephil.charting.data.LineDataSet;
-//
-//import org.json.JSONException;
-//
-//import java.util.ArrayList;
-//
-//public class MonthFragmenter extends Fragment {
-//
-//
-//    public MonthFragmenter() {
-//        // Required empty public constructor
-//    }
-//
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_month_fragmenter, container, false);
-//    }
-//
-//    @Override
-//    public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
-//        LineChart chart = (LineChart) getView().findViewById(R.id.chartMonth);
-//        drawChart(GlobalVariables.currentColumn, chart);
-//    }
+package com.example.justy.DataFromSensors;
+
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.github.mikephil.charting.charts.LineChart;
+
+public class MonthFragmenter extends Fragment {
+
+
+    public MonthFragmenter() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_month_fragmenter, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
+        LineChart chart = (LineChart) getView().findViewById(R.id.chartMonth);
+        DrawChart drawChart = new DrawChart(SplashActivity.jsonArrayMonth, GlobalVariables.currentColumn);
+        drawChart.drawChart(chart, getContext(), new TimeAxisValueFormatterForMonth());
+    }
 //
 //    public void drawChart(String columnName, LineChart chart){
 //
@@ -69,7 +64,7 @@
 //
 //        XAxis xAxis = chart.getXAxis();
 //        generateXAxis(xAxis);
-//        xAxis.setValueFormatter(new TimeAxisValueFormatter());
+//        xAxis.setValueFormatter(new TimeAxisValueFormatterForDay());
 //
 //        chart.setDrawMarkers(true);
 //        //chart.setMarker(markerView(getApplicationContext(), chart.getWidth()));
@@ -96,5 +91,5 @@
 //        xAxis.setLabelRotationAngle(-45f);
 //        xAxis.setLabelCount(12, true);
 //    }
-//
-//}
+
+}

@@ -34,6 +34,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 try {
                     synchronized (this) {
+
                         wait(splashScreenTime);
                     }
                 } catch (InterruptedException e) {
@@ -67,17 +68,11 @@ public class SplashActivity extends AppCompatActivity {
 
 
                 try {
-                    PostRequest postRequestPerMonth = new PostRequest();
-                    postRequestPerMonth.post("month", "Krakow, ul. Kujawska 1");
-                    jsonArrayMonth = postRequestPerMonth.getResponseArray();
-                    System.out.println("miesiac");
+                    PostRequest postRequestPerDay = new PostRequest();
+                    postRequestPerDay.post("day", "Krakow, ul. Kujawska 1");
+                    jsonArrayDay = postRequestPerDay.getResponseArray();
+                    System.out.println("dzien");
                     System.out.println(jsonArrayDay);
-
-                    PostRequest postRequestPerYear = new PostRequest();
-                    postRequestPerYear.post("year", "Krakow, ul. Kujawska 1");
-                    jsonArrayYear = postRequestPerYear.getResponseArray();
-                    System.out.println("rok");
-                    System.out.println(jsonArrayYear);
 
                     PostRequest postRequestPerWeek = new PostRequest();
                     postRequestPerWeek.post("week", "Krakow, ul. Kujawska 1");
@@ -85,19 +80,17 @@ public class SplashActivity extends AppCompatActivity {
                     System.out.println("tydzien");
                     System.out.println(jsonArrayWeek);
 
-                    PostRequest postRequestPerDay = new PostRequest();
-                    postRequestPerDay.post("day", "Krakow, ul. Kujawska 1");
-                    jsonArrayDay = postRequestPerDay.getResponseArray();
-                    System.out.println("dzien");
-                    System.out.println(jsonArrayDay);
+                    PostRequest postRequestPerMonth = new PostRequest();
+                    postRequestPerMonth.post("month", "Krakow, ul. Kujawska 1");
+                    jsonArrayMonth = postRequestPerMonth.getResponseArray();
+                    System.out.println("miesiac");
+                    System.out.println(jsonArrayMonth);
 
-//                    System.out.println("miesiac");
-//                    System.out.println(jsonArrayMonth);
-//                    System.out.println("rok");
-//                    System.out.println(jsonArrayYear);
-//                    System.out.println("tydzien");
-//                    System.out.println(jsonArrayWeek);
-
+                    PostRequest postRequestPerYear = new PostRequest();
+                    postRequestPerYear.post("year", "Krakow, ul. Kujawska 1");
+                    jsonArrayYear = postRequestPerYear.getResponseArray();
+                    System.out.println("rok");
+                    System.out.println(jsonArrayYear);
 
                 } catch (Exception e) {
                     e.printStackTrace();
