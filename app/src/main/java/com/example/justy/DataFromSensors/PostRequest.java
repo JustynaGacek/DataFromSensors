@@ -14,7 +14,7 @@ import okhttp3.Response;
 public class PostRequest {
 
     private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    final String url = "https://station-controll-3.localtunnel.me/request_data/";
+    final String url = "https://station-controll-4.localtunnel.me/request_data/";
 
     private OkHttpClient client = new OkHttpClient();
 

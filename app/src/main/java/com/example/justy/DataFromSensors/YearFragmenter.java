@@ -30,7 +30,8 @@ public class YearFragmenter extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         LineChart chart = (LineChart) getView().findViewById(R.id.chartYear);
-        DrawChart drawChart = new DrawChart(SplashActivity.jsonArrayYear, GlobalVariables.currentColumn);
+        DrawChart drawChart = new DrawChart(SplashActivity.jsonArrayYear.get(SplashActivity.avaliableStationsRequest.getStationsNames().indexOf(GlobalVariables.currentStation)), GlobalVariables.currentColumn);
+//        DrawChart drawChart = new DrawChart(SplashActivity.jsonArrayYear.get(0), GlobalVariables.currentColumn);
         drawChart.drawChart(chart, getContext(), new TimeAxisValueFormatterForYear());
     }
 

@@ -12,7 +12,7 @@ import okhttp3.Request;
 
 public class GetAvaliableStationsRequest {
 
-    final String url = "https://station-controll-3.localtunnel.me/view_stations_available/";
+    final String url = "https://station-controll-4.localtunnel.me/view_stations_available/";
 
     private OkHttpClient client = new OkHttpClient();
 
@@ -27,7 +27,7 @@ public class GetAvaliableStationsRequest {
         stationsNames = new ArrayList<>();
     }
 
-    public void get() {
+    public void get() throws IOException {
 
         Request request = new Request.Builder()
                 .url(url)

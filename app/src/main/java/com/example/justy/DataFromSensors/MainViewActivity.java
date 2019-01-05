@@ -29,6 +29,7 @@ public class MainViewActivity extends AppCompatActivity
     private OkHttpClient client;
     private int amountOfColumns;
     private ArrayList<String> columnsNames;
+    private ArrayList<String> stationsNames;
     private Menu newMenu;
 
     @Override
@@ -44,7 +45,7 @@ public class MainViewActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        SplashActivity.avaliableStationsRequest.parseJsonToVariables();
+//        SplashActivity.avaliableStationsRequest.parseJsonToVariables();
         SplashActivity.avaliableStationsRequest.printAll();
 
         SplashActivity.avaliableDataRequest.parseJsonToVariables();
@@ -53,7 +54,10 @@ public class MainViewActivity extends AppCompatActivity
         columnsNames = SplashActivity.avaliableDataRequest.getAvaliableColumnsNames();
         amountOfColumns = SplashActivity.avaliableDataRequest.getAvaliableColumnsNames().size();
 
+        stationsNames = SplashActivity.avaliableStationsRequest.getStationsNames();
+
         GlobalVariables.currentColumn = columnsNames.get(0);
+        GlobalVariables.currentStation = stationsNames.get(0);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinnerId);
         spinner.setPrompt("Wybierz stację");
@@ -66,6 +70,11 @@ public class MainViewActivity extends AppCompatActivity
                 String item = spinner.getSelectedItem().toString();
                 TextView myText = (TextView) view;
                 Toast.makeText(getApplicationContext(), "Wybrałeś: " + myText.getText(), Toast.LENGTH_SHORT).show();
+                GlobalVariables.currentStation = (String) myText.getText();
+                System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeee");
+                System.out.println(myText.getText().getClass());
+                System.out.println(myText.getText());
+                System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeee");
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -83,8 +92,9 @@ public class MainViewActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         newMenu = navigationView.getMenu();
         newMenu.clear();
+//        newMenu.add(0, 0, Menu.NONE, "Podsumowanie");
         for (int i = 0; i < amountOfColumns; i++) {
-            newMenu.add(0, i, Menu.NONE, columnsNames.get(i));
+            newMenu.add(0, i, Menu.NONE, columnsNames.get(i)); //i+1
         }
 
         navigationView.setNavigationItemSelectedListener(this);
@@ -119,20 +129,28 @@ public class MainViewActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        for (int i = 0; i < amountOfColumns; i++) {
-            if (newMenu.getItem(i).getItemId() == id) {
-                GlobalVariables.currentColumn = columnsNames.get(i);
-                System.out.println(GlobalVariables.currentColumn);
-                TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutId);
-                TabLayout.Tab tab = tabLayout.getTabAt(0);
-                tab.select();
-                ViewPager viewPager = (ViewPager) findViewById(R.id.viewPagerId);
-                MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), this, 4);
-                viewPager.setAdapter(adapter);
-                tabLayout.setupWithViewPager(viewPager);
+//        if(id == 0) {
+//            Intent mainViewIntent = new Intent(MainViewActivity.this, CurrentDataActivity.class);
+//            startActivity(mainViewIntent);
+//        }
+//        else {
+            for (int i = 0; i < amountOfColumns; i++) {
+                if (newMenu.getItem(i).getItemId() == id) {
+//                    Intent mainViewIntent = new Intent(CurrentDataActivity.this, MainViewActivity.class);
+//                    startActivity(mainViewIntent);
+                    GlobalVariables.currentColumn = columnsNames.get(i);
+                    System.out.println(GlobalVariables.currentColumn);
+                    TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutId);
+                    TabLayout.Tab tab = tabLayout.getTabAt(0);
+                    tab.select();
+                    ViewPager viewPager = (ViewPager) findViewById(R.id.viewPagerId);
+                    MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), this, 4);
+                    viewPager.setAdapter(adapter);
+                    tabLayout.setupWithViewPager(viewPager);
 
+                }
             }
-        }
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

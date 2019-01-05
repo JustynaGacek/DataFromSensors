@@ -29,7 +29,8 @@ public class MonthFragmenter extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         LineChart chart = (LineChart) getView().findViewById(R.id.chartMonth);
-        DrawChart drawChart = new DrawChart(SplashActivity.jsonArrayMonth, GlobalVariables.currentColumn);
+        DrawChart drawChart = new DrawChart(SplashActivity.jsonArrayMonth.get(SplashActivity.avaliableStationsRequest.getStationsNames().indexOf(GlobalVariables.currentStation)), GlobalVariables.currentColumn);
+//        DrawChart drawChart = new DrawChart(SplashActivity.jsonArrayMonth.get(0), GlobalVariables.currentColumn);
         drawChart.drawChart(chart, getContext(), new TimeAxisValueFormatterForMonth());
     }
 //

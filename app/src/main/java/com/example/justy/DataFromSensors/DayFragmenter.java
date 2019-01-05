@@ -29,7 +29,8 @@ public class DayFragmenter extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         LineChart chart = (LineChart) getView().findViewById(R.id.chartDay);
-        DrawChart drawChart = new DrawChart(SplashActivity.jsonArrayDay, GlobalVariables.currentColumn);
+        DrawChart drawChart = new DrawChart(SplashActivity.jsonArrayDay.get(SplashActivity.avaliableStationsRequest.getStationsNames().indexOf(GlobalVariables.currentStation)), GlobalVariables.currentColumn);
+//        DrawChart drawChart = new DrawChart(SplashActivity.jsonArrayDay.get(0), GlobalVariables.currentColumn);
         drawChart.drawChart(chart, getContext(), new TimeAxisValueFormatterForDay());
     }
 

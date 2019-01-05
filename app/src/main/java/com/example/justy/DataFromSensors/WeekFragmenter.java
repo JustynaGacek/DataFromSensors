@@ -30,7 +30,8 @@ public class WeekFragmenter extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         LineChart chart = (LineChart) getView().findViewById(R.id.chartWeek);
-        DrawChart drawChart = new DrawChart(SplashActivity.jsonArrayWeek, GlobalVariables.currentColumn);
+        DrawChart drawChart = new DrawChart(SplashActivity.jsonArrayWeek.get(SplashActivity.avaliableStationsRequest.getStationsNames().indexOf(GlobalVariables.currentStation)), GlobalVariables.currentColumn);
+//        DrawChart drawChart = new DrawChart(SplashActivity.jsonArrayWeek.get(0), GlobalVariables.currentColumn);
         drawChart.drawChart(chart, getContext(), new TimeAxisValueFormatterForWeek());
     }
 

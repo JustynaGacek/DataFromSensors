@@ -20,5 +20,7 @@ public class GlobalVariables {
 
     public static int currentTab;
 
+    public static String currentStation;
+
 
 }
