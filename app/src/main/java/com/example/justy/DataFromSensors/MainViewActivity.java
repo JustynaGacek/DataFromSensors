@@ -1,5 +1,6 @@
 package com.example.justy.DataFromSensors;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -20,49 +21,73 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import okhttp3.OkHttpClient;
-
 
 public class MainViewActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private OkHttpClient client;
+    public static String currentColumn;
+    public static String currentStation;
+
     private int amountOfColumns;
     private ArrayList<String> columnsNames;
     private ArrayList<String> stationsNames;
+
     private Menu newMenu;
+    private MyFragmentPagerAdapter adapter;
+    private NavigationView navigationView;
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
+    private DrawerLayout drawer;
+    private ActionBarDrawerToggle toggle;
+
+    private TextView chartSignature;
+
+    private CurrentDataDialog currentDataDialog;
+    private ErrorDialog errorDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_view);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-//        SplashActivity.avaliableStationsRequest.parseJsonToVariables();
-        SplashActivity.avaliableStationsRequest.printAll();
+        loadData();
+        createSpinnerWithSations();
+        manageFragments();
+        createMenuWithMeasurements();
+        createChartSignature();
+    }
+
+    void loadData(){
 
         SplashActivity.avaliableDataRequest.parseJsonToVariables();
-        SplashActivity.avaliableDataRequest.printAll();
-        System.out.println("tuuuuuuu");
         columnsNames = SplashActivity.avaliableDataRequest.getAvaliableColumnsNames();
         amountOfColumns = SplashActivity.avaliableDataRequest.getAvaliableColumnsNames().size();
-
         stationsNames = SplashActivity.avaliableStationsRequest.getStationsNames();
 
-        GlobalVariables.currentColumn = columnsNames.get(0);
-        GlobalVariables.currentStation = stationsNames.get(0);
+        try {
+            currentColumn = columnsNames.get(0);
+            currentStation = stationsNames.get(0);
+        }catch (Exception e){
+            errorDialog = new ErrorDialog();
+            errorDialog.showErrorDialog(this);
+        }
+    }
 
+    void createSpinnerWithSations(){
         Spinner spinner = (Spinner) findViewById(R.id.spinnerId);
         spinner.setPrompt("Wybierz stację");
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.spinner_item, SplashActivity.avaliableStationsRequest.getStationsNames());
-//        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.spinner_item, stationsNames);
         spinner.setAdapter(arrayAdapter);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -70,57 +95,43 @@ public class MainViewActivity extends AppCompatActivity
                 String item = spinner.getSelectedItem().toString();
                 TextView myText = (TextView) view;
                 Toast.makeText(getApplicationContext(), "Wybrałeś: " + myText.getText(), Toast.LENGTH_SHORT).show();
-                GlobalVariables.currentStation = (String) myText.getText();
-                System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeee");
-                System.out.println(myText.getText().getClass());
-                System.out.println(myText.getText());
-                System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeee");
+                currentStation = (String) myText.getText();
+                tabLayout = (TabLayout) findViewById(R.id.tabLayoutId);
+                TabLayout.Tab tab = tabLayout.getTabAt(0);
+                tab.select();
+                viewPager.setAdapter(adapter);
+                tabLayout.setupWithViewPager(viewPager);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
+    }
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPagerId);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutId);
-        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), this, 4);
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
-
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+    void createMenuWithMeasurements(){
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         newMenu = navigationView.getMenu();
         newMenu.clear();
-//        newMenu.add(0, 0, Menu.NONE, "Podsumowanie");
         for (int i = 0; i < amountOfColumns; i++) {
             newMenu.add(0, i, Menu.NONE, columnsNames.get(i)); //i+1
+            newMenu.getItem(i).setIcon(R.drawable.baseline_insert_chart_outlined_24);
         }
 
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_view, menu);
-        return true;
+    void manageFragments(){
+        viewPager = (ViewPager) findViewById(R.id.viewPagerId);
+        tabLayout = (TabLayout) findViewById(R.id.tabLayoutId);
+        adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), this, 4);
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    void createChartSignature(){
+        chartSignature = findViewById(R.id.chartSignatureTextViewId);
+        chartSignature.setText(currentColumn);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -129,32 +140,25 @@ public class MainViewActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-//        if(id == 0) {
-//            Intent mainViewIntent = new Intent(MainViewActivity.this, CurrentDataActivity.class);
-//            startActivity(mainViewIntent);
-//        }
-//        else {
             for (int i = 0; i < amountOfColumns; i++) {
                 if (newMenu.getItem(i).getItemId() == id) {
-//                    Intent mainViewIntent = new Intent(CurrentDataActivity.this, MainViewActivity.class);
-//                    startActivity(mainViewIntent);
-                    GlobalVariables.currentColumn = columnsNames.get(i);
-                    System.out.println(GlobalVariables.currentColumn);
+                    currentColumn = columnsNames.get(i);
                     TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutId);
                     TabLayout.Tab tab = tabLayout.getTabAt(0);
                     tab.select();
-                    ViewPager viewPager = (ViewPager) findViewById(R.id.viewPagerId);
-                    MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), this, 4);
                     viewPager.setAdapter(adapter);
                     tabLayout.setupWithViewPager(viewPager);
-
+                    chartSignature.setText(currentColumn);
                 }
             }
-//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    public void showTableWithCurrentData(View view) {
+        System.out.println("sssss");
+        currentDataDialog = new CurrentDataDialog(this, columnsNames);
+    }
 }

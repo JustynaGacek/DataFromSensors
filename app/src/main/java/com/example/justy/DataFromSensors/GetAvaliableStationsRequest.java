@@ -10,15 +10,12 @@ import java.util.ArrayList;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class GetAvaliableStationsRequest {
+public class GetAvaliableStationsRequest extends PrepareResponseBase {
 
-    final String url = "https://station-controll-4.localtunnel.me/view_stations_available/";
-
-    private OkHttpClient client = new OkHttpClient();
+    private final String url = "https://station-controll-1.localtunnel.me/view_stations_available/";
 
     private JSONArray avaliableStationsJSON;
 
-    //avaliable columns names
     private ArrayList<Integer> stationsIds;
     private ArrayList<String> stationsNames;
 
@@ -27,7 +24,7 @@ public class GetAvaliableStationsRequest {
         stationsNames = new ArrayList<>();
     }
 
-    public void get() throws IOException {
+    public void getDataAndSaveAsJsonArray(OkHttpClient client) throws IOException {
 
         Request request = new Request.Builder()
                 .url(url)
@@ -35,15 +32,14 @@ public class GetAvaliableStationsRequest {
 
         try {
             String responseString = client.newCall(request).execute().body().string();
-            String responseAfterRemoveBackslash = responseString.replace("\\\"", "\"");
-            responseAfterRemoveBackslash = responseAfterRemoveBackslash.substring(1, responseAfterRemoveBackslash.length() - 1);
-            avaliableStationsJSON = new JSONArray(responseAfterRemoveBackslash);
+            avaliableStationsJSON = new JSONArray(transformResponseString(responseString));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
 
     public void parseJsonToVariables(){
         if(avaliableStationsJSON!=null) {

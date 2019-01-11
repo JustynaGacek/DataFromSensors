@@ -7,11 +7,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TimeAxisValueFormatterForMonth implements IAxisValueFormatter {
-    private SimpleDateFormat mFormat = new SimpleDateFormat("d. MMM");
+    private SimpleDateFormat format;
+
+    TimeAxisValueFormatterForMonth(){
+        format = new SimpleDateFormat("d. MMM");
+    }
 
     @Override
     public String getFormattedValue(float value, AxisBase axis) {
-        Date s = new Date(new Float(value + GlobalVariables.currentTimestamp).longValue());
-        return mFormat.format(s);
+        Date s = new Date(new Float(value + DrawChart.currentTimestamp).longValue());
+        return format.format(s);
     }
 }

@@ -20,6 +20,8 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_data_from_sensors"
-        app:menu="@menu/activity_main_view_drawer" />
+        app:menu="@menu/activity_main_view_drawer"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:theme="@style/NavigationDrawerStyle"/>
 
 </android.support.v4.widget.DrawerLayout>

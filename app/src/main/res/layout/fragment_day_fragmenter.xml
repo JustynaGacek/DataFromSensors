@@ -4,15 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DayFragmenter">
-
-
-    <TextView
-        android:layout_width="341dp"
-        android:layout_height="30dp"
-        android:text="@string/dayTabName"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="206dp" />
+    tools:context=".DayFragment">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

@@ -1,0 +1,400 @@
+@startuml
+
+title __APP's Class Diagram__\n
+
+  package com.example.justy.DataFromSensors {
+    class BuildConfig {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class BuildConfig {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class CurrentDataDialog {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class CustomMarkerView {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class DayFragmenter {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class DrawChart {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class ErrorDialog {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class ExampleInstrumentedTest {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class GetAvailableDataRequest {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class GetAvaliableStationsRequest {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class GlobalVariables {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class MainViewActivity {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class Manifest {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class MonthFragmenter {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class MyFragmentPagerAdapter {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class ParseJSON {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    abstract class PrepareResponseBase {
+    }
+  }
+  
+
+  package android.support.v7.appcompat {
+    class R {
+    }
+  }
+  
+
+  package android.support.compat {
+    class R {
+    }
+  }
+  
+
+  package android.support.loader {
+    class R {
+    }
+  }
+  
+
+  package android.support.fragment {
+    class R {
+    }
+  }
+  
+
+  package android.support.customview {
+    class R {
+    }
+  }
+  
+
+  package android.arch.core {
+    class R {
+    }
+  }
+  
+
+  package android.support.graphics.drawable {
+    class R {
+    }
+  }
+  
+
+  package android.support.design {
+    class R {
+    }
+  }
+  
+
+  package android.support.mediacompat {
+    class R {
+    }
+  }
+  
+
+  package android.support.slidingpanelayout {
+    class R {
+    }
+  }
+  
+
+  package android.support.interpolator {
+    class R {
+    }
+  }
+  
+
+  package android.support.coordinatorlayout {
+    class R {
+    }
+  }
+  
+
+  package android.support.documentfile {
+    class R {
+    }
+  }
+  
+
+  package android.support.print {
+    class R {
+    }
+  }
+  
+
+  package android.support.v7.cardview {
+    class R {
+    }
+  }
+  
+
+  package android.support.v4 {
+    class R {
+    }
+  }
+  
+
+  package android.arch.lifecycle {
+    package android.arch.lifecycle.livedata {
+      package android.arch.lifecycle.livedata.core {
+        class R {
+        }
+      }
+    }
+  }
+  
+
+  package android.support.coreui {
+    class R {
+    }
+  }
+  
+
+  package android.support.transition {
+    class R {
+    }
+  }
+  
+
+  package android.arch.lifecycle {
+    package android.arch.lifecycle.livedata {
+      class R {
+      }
+    }
+  }
+  
+
+  package android.support.v7.recyclerview {
+    class R {
+    }
+  }
+  
+
+  package android.support.swiperefreshlayout {
+    class R {
+    }
+  }
+  
+
+  package android.support.cursoradapter {
+    class R {
+    }
+  }
+  
+
+  package android.support.asynclayoutinflater {
+    class R {
+    }
+  }
+  
+
+  package android.support.drawerlayout {
+    class R {
+    }
+  }
+  
+
+  package android.arch.lifecycle {
+    class R {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class R {
+    }
+  }
+  
+
+  package android.arch.lifecycle {
+    package android.arch.lifecycle.viewmodel {
+      class R {
+      }
+    }
+  }
+  
+
+  package androidx.versionedparcelable {
+    class R {
+    }
+  }
+  
+
+  package android.support.localbroadcastmanager {
+    class R {
+    }
+  }
+  
+
+  package android.support.v7.viewpager {
+    class R {
+    }
+  }
+  
+
+  package android.support.constraint {
+    class R {
+    }
+  }
+  
+
+  package android.support.coreutils {
+    class R {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class R {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class SendPostToGetMeasurementDataRequest {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class SplashActivity {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class TimeAxisValueFormatterForDay {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class TimeAxisValueFormatterForMonth {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class TimeAxisValueFormatterForWeek {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class TimeAxisValueFormatterForYear {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class TimeValueFormatter {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class WeekFragmenter {
+    }
+  }
+  
+
+  package com.example.justy.DataFromSensors {
+    class YearFragmenter {
+    }
+  }
+  
+
+  CustomMarkerView -up-|> MarkerView
+  DayFragmenter -up-|> Fragment
+  DrawChart o-- ParseJSON : parseJSON
+  GetAvailableDataRequest -up-|> PrepareResponseBase
+  GetAvaliableStationsRequest -up-|> PrepareResponseBase
+  MainViewActivity -up-|> OnNavigationItemSelectedListener
+  MainViewActivity -up-|> AppCompatActivity
+  MainViewActivity o-- MyFragmentPagerAdapter : adapter
+  MonthFragmenter -up-|> Fragment
+  MyFragmentPagerAdapter -up-|> FragmentPagerAdapter
+  SendPostToGetMeasurementDataRequest -up-|> PrepareResponseBase
+  SplashActivity -up-|> AppCompatActivity
+  TimeAxisValueFormatterForDay -up-|> IAxisValueFormatter
+  TimeAxisValueFormatterForMonth -up-|> IAxisValueFormatter
+  TimeAxisValueFormatterForWeek -up-|> IAxisValueFormatter
+  TimeAxisValueFormatterForYear -up-|> IAxisValueFormatter
+  WeekFragmenter -up-|> Fragment
+  YearFragmenter -up-|> Fragment
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

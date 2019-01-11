@@ -10,15 +10,12 @@ import java.util.ArrayList;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class GetAvailableDataRequest {
+public class GetAvailableDataRequest extends PrepareResponseBase {
 
-    final String url = "https://station-controll-4.localtunnel.me/view_data_available/";
-
-    private OkHttpClient client = new OkHttpClient();
+    private final String url = "https://station-controll-1.localtunnel.me/view_data_available/";
 
     private JSONObject avaliableDataJSON;
 
-    //avaliable columns names
     private String stationColumnName;
     private String idColumnName;
     private String timeMeasurementColumnName;
@@ -30,7 +27,7 @@ public class GetAvailableDataRequest {
         avaliableColumnsUnitsNames = new ArrayList<>();
     }
 
-    public void get() {
+    public void getDataAndSaveAsJsonArray(OkHttpClient client) {
 
         Request request = new Request.Builder()
                 .url(url)
@@ -38,17 +35,14 @@ public class GetAvailableDataRequest {
 
         try {
             String responseString = client.newCall(request).execute().body().string();
-            String responseAfterRemoveBackslash = responseString.replace("\\\"", "\"");
-            responseAfterRemoveBackslash = responseAfterRemoveBackslash.substring(1, responseAfterRemoveBackslash.length() - 1);
-            avaliableDataJSON = new JSONObject(responseAfterRemoveBackslash);
-            System.out.println();
-            System.out.println(avaliableDataJSON.get("columns").getClass());
+            avaliableDataJSON = new JSONObject(transformResponseString(responseString));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
 
     public void parseJsonToVariables(){
         if(avaliableDataJSON!=null) {

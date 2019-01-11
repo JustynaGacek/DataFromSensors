@@ -9,6 +9,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
     private Context context;
     private int numOfTabs;
+    private Fragment fragment;
 
     public MyFragmentPagerAdapter(FragmentManager fm, Context context, int numOfTabs) {
         super(fm);
@@ -21,15 +22,20 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new DayFragmenter();
+                fragment = new DayFragment();
+                return fragment;
             case 1:
-                return new WeekFragmenter();
+                fragment = new WeekFragment();
+                return fragment;
             case 2:
-                return new MonthFragmenter();
+                fragment = new MonthFragment();
+                return fragment;
             case 3:
-                return new YearFragmenter();
+                fragment = new YearFragment();
+                return fragment;
             default:
-                return null;
+                fragment = null;
+                return fragment;
         }
     }
 

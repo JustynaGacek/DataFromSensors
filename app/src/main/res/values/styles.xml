@@ -21,4 +21,10 @@
         <item name="android:windowBackground">@drawable/splash_view</item>
     </style>
 
+    <style name="NavigationDrawerStyle">
+        <item name="android:textSize">18sp</item><!-- text size in menu-->
+        <item name="android:listPreferredItemHeightSmall">60dp</item><!-- item size in menu-->
+        <!--<item name="listPreferredItemHeightSmall">60dp</item>&lt;!&ndash; item size in menu&ndash;&gt;-->
+    </style>
+
 </resources>
