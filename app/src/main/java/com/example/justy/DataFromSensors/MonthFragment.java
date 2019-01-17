@@ -16,7 +16,6 @@ public class MonthFragment extends Fragment {
     private DrawChart drawChart;
 
     public MonthFragment() {
-        // Required empty public constructor
         timeAxisValueFormatter = new TimeAxisValueFormatterForMonth();
     }
 
@@ -24,7 +23,6 @@ public class MonthFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_month_fragmenter, container, false);
     }
 

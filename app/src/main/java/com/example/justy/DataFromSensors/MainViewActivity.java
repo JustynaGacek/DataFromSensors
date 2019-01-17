@@ -1,7 +1,9 @@
 package com.example.justy.DataFromSensors;
 
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -28,7 +30,6 @@ public class MainViewActivity extends AppCompatActivity
     public static String currentColumn;
     public static String currentStation;
 
-    private int amountOfColumns;
     private ArrayList<String> columnsNames;
     private ArrayList<String> stationsNames;
 
@@ -68,11 +69,10 @@ public class MainViewActivity extends AppCompatActivity
         createChartSignature();
     }
 
-    void loadData(){
+    public void loadData(){
 
         SplashActivity.avaliableDataRequest.parseJsonToVariables();
         columnsNames = SplashActivity.avaliableDataRequest.getAvaliableColumnsNames();
-        amountOfColumns = SplashActivity.avaliableDataRequest.getAvaliableColumnsNames().size();
         stationsNames = SplashActivity.avaliableStationsRequest.getStationsNames();
 
         try {
@@ -84,7 +84,7 @@ public class MainViewActivity extends AppCompatActivity
         }
     }
 
-    void createSpinnerWithSations(){
+    public void createSpinnerWithSations(){
         Spinner spinner = (Spinner) findViewById(R.id.spinnerId);
         spinner.setPrompt("Wybierz stację");
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.spinner_item, stationsNames);
@@ -109,11 +109,11 @@ public class MainViewActivity extends AppCompatActivity
         });
     }
 
-    void createMenuWithMeasurements(){
+    public void createMenuWithMeasurements(){
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         newMenu = navigationView.getMenu();
         newMenu.clear();
-        for (int i = 0; i < amountOfColumns; i++) {
+        for (int i = 0; i < columnsNames.size(); i++) {
             newMenu.add(0, i, Menu.NONE, columnsNames.get(i)); //i+1
             newMenu.getItem(i).setIcon(R.drawable.baseline_insert_chart_outlined_24);
         }
@@ -121,7 +121,7 @@ public class MainViewActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    void manageFragments(){
+    public void manageFragments(){
         viewPager = (ViewPager) findViewById(R.id.viewPagerId);
         tabLayout = (TabLayout) findViewById(R.id.tabLayoutId);
         adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), this, 4);
@@ -129,7 +129,7 @@ public class MainViewActivity extends AppCompatActivity
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    void createChartSignature(){
+    public void createChartSignature(){
         chartSignature = findViewById(R.id.chartSignatureTextViewId);
         chartSignature.setText(currentColumn);
     }
@@ -140,7 +140,7 @@ public class MainViewActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-            for (int i = 0; i < amountOfColumns; i++) {
+            for (int i = 0; i < columnsNames.size(); i++) {
                 if (newMenu.getItem(i).getItemId() == id) {
                     currentColumn = columnsNames.get(i);
                     TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutId);
@@ -157,8 +157,8 @@ public class MainViewActivity extends AppCompatActivity
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     public void showTableWithCurrentData(View view) {
-        System.out.println("sssss");
         currentDataDialog = new CurrentDataDialog(this, columnsNames);
     }
 }

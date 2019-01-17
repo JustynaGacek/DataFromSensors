@@ -14,11 +14,11 @@ import okhttp3.Response;
 public class GetMeasurementsDataRequest extends PrepareResponseBase {
 
     private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    private final String url = "https://station-controll-1.localtunnel.me/request_data/";
+    private final String url = "https://station-controll-6.localtunnel.me/request_data/";
 
     private JSONArray responseArray;
 
-    void getMeasurementsDataAndSaveAsJSONArray(OkHttpClient client, String timeRange, String station) {
+    public void getMeasurementsDataAndSaveAsJSONArray(OkHttpClient client, String timeRange, String station) {
 
         String jsonToSend = createJsonToSend(timeRange, station);
 
@@ -33,7 +33,6 @@ public class GetMeasurementsDataRequest extends PrepareResponseBase {
         try {
             Response response = client.newCall(request).execute();
             responseArray = new JSONArray(transformResponseString(response.body().string()));
-//            response.body().close();
         } catch (IOException e) {
 
         } catch (JSONException e) {
@@ -41,11 +40,11 @@ public class GetMeasurementsDataRequest extends PrepareResponseBase {
         }
     }
 
-    String createJsonToSend(String timeRange, String station){
+    public String createJsonToSend(String timeRange, String station){
         return "{\"Time\": \"" + timeRange + "\", \"Station\":\"" + station + "\"}";
     }
 
-    JSONArray getResponseArray() {
+    public JSONArray getResponseArray() {
         return responseArray;
     }
 

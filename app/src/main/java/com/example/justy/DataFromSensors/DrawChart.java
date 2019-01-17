@@ -71,20 +71,16 @@ public class DrawChart {
         chart.invalidate();
     }
 
-    void setChartProperties(LineDataSet set){
+    public void setChartProperties(LineDataSet set){
         set.setFillAlpha(110);
         set.setLineWidth(1f);
         set.setValueTextSize(10f);
         set.setDrawCircles(true);
         set.setDrawValues(false);
         set.setHighlightEnabled(true);
-//        set.addColor(Color.parseColor("#303F9F")); // Your Blue
-//        set.setCircleColor(Color.parseColor("#303F9F"));
-//        set.setCircleRadius(3f);
-//        set.setDrawCircleHole(true);
     }
 
-    void generateXAxis(XAxis xAxis, IAxisValueFormatter valueFormatter){
+    public void generateXAxis(XAxis xAxis, IAxisValueFormatter valueFormatter){
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextSize(10f);
         xAxis.setDrawAxisLine(true);

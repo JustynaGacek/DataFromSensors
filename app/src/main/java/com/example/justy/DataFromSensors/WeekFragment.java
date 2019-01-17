@@ -13,11 +13,10 @@ import com.github.mikephil.charting.charts.LineChart;
 
 public class WeekFragment extends Fragment {
 
-    TimeAxisValueFormatterForWeek timeAxisValueFormatter;
-    DrawChart drawChart;
+    private TimeAxisValueFormatterForWeek timeAxisValueFormatter;
+    private DrawChart drawChart;
 
     public WeekFragment() {
-        // Required empty public constructor
         timeAxisValueFormatter = new TimeAxisValueFormatterForWeek();
     }
 
@@ -25,7 +24,6 @@ public class WeekFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_week_fragmenter, container, false);
     }
 

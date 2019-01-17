@@ -13,11 +13,10 @@ import com.github.mikephil.charting.charts.LineChart;
 
 public class YearFragment extends Fragment {
 
-    TimeAxisValueFormatterForYear timeAxisValueFormatter;
-    DrawChart drawChart;
+    private TimeAxisValueFormatterForYear timeAxisValueFormatter;
+    private DrawChart drawChart;
 
     public YearFragment() {
-        // Required empty public constructor
         timeAxisValueFormatter = new TimeAxisValueFormatterForYear();
     }
 
@@ -25,7 +24,6 @@ public class YearFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_year_fragmenter, container, false);
     }
 

@@ -25,22 +25,7 @@ public class ParseJSON {
         newestMeasurementUnit = "ppp";
     }
 
-//    String getUnitFromJSON(JSONArray jsonArray, String columnName) throws JSONException {
-//        if(jsonArray!=null){
-//            JSONObject object;
-//            JSONObject objectFields;
-//            int i = 0;
-//            do {
-//                object = jsonArray.getJSONObject(i);
-//                objectFields = (JSONObject) object.get("fields");
-//                unit = objectFields.getString(columnName + "_jednostka");
-//                i++;
-//            }while (unit.equals("null"));
-//        }
-//        return unit;
-//    }
-
-    void getTheNewestMeasurement(JSONArray jsonArray, String columnName) throws JSONException {
+    public void getTheNewestMeasurement(JSONArray jsonArray, String columnName) throws JSONException {
         if(jsonArray!=null) {
             int i = jsonArray.length()-1;
             String value = null;
@@ -60,23 +45,10 @@ public class ParseJSON {
                 newestMeasurementValue = value;
                 newestMeasurementUnit = unit;
             }
-
-//            System.out.print(newestMeasurementTime);
-//            System.out.print(" ");
-//            System.out.print(newestMeasurementValue);
-//            System.out.print(" ");
-//            System.out.print(newestMeasurementUnit);
-//            System.out.println();
         }
     }
 
-    void clear(){
-        newestMeasurementValue = null;
-        newestMeasurementTime = null;
-        newestMeasurementUnit = null;
-    }
-
-    void getDataFromJSON(JSONArray jsonArray, String columnName) throws JSONException {
+    public void getDataFromJSON(JSONArray jsonArray, String columnName) throws JSONException {
 
         if(jsonArray!=null) {
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -94,21 +66,27 @@ public class ParseJSON {
         }
     }
 
-    String getUnit(){
+    public void clear(){
+        newestMeasurementValue = null;
+        newestMeasurementTime = null;
+        newestMeasurementUnit = null;
+    }
+
+    public void clearArrays() {
+        timeArray.clear();
+        valuesArray.clear();
+    }
+
+    public String getUnit(){
         return unit;
     }
 
-    ArrayList<Long> getTimeArray(){
+    public ArrayList<Long> getTimeArray(){
         return timeArray;
     }
 
-    ArrayList<Float> getFloatArray(){
+    public ArrayList<Float> getFloatArray(){
         return valuesArray;
-    }
-
-    void clearArrays() {
-        timeArray.clear();
-        valuesArray.clear();
     }
 
     public String getNewestMeasurementValue() {
@@ -124,13 +102,3 @@ public class ParseJSON {
     }
 
 }
-
-
-//                System.out.print(i);
-//                System.out.print(" ");
-//                System.out.print(value);
-//                System.out.print(" ");
-//                System.out.print(time);
-//                System.out.print(" ");
-//                System.out.print(unit);
-//                System.out.println();

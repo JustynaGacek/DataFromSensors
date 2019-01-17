@@ -12,7 +12,7 @@ import okhttp3.Request;
 
 public class GetAvaliableStationsRequest extends PrepareResponseBase {
 
-    private final String url = "https://station-controll-1.localtunnel.me/view_stations_available/";
+    private final String url = "https://station-controll-6.localtunnel.me/view_stations_available/";
 
     private JSONArray avaliableStationsJSON;
 

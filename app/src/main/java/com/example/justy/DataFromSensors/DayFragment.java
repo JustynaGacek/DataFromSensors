@@ -16,14 +16,12 @@ public class DayFragment extends Fragment {
     private DrawChart drawChart;
 
     public DayFragment() {
-        // Required empty public constructor
         timeAxisValueFormatter = new TimeAxisValueFormatterForDay();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         return inflater.inflate(R.layout.fragment_day_fragmenter, container, false);
     }
