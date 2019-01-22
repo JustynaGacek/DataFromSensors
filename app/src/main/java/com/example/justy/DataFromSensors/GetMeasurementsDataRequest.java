@@ -14,7 +14,7 @@ import okhttp3.Response;
 public class GetMeasurementsDataRequest extends PrepareResponseBase {
 
     private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    private final String url = "https://station-controll-6.localtunnel.me/request_data/";
+    private final String endpoint = "request_data/";
 
     private JSONArray responseArray;
 
@@ -25,7 +25,7 @@ public class GetMeasurementsDataRequest extends PrepareResponseBase {
         RequestBody body = RequestBody.create(JSON, jsonToSend);
 
         Request request = new Request.Builder()
-                .url(url)
+                .url(ServerAddress.url + endpoint)
                 .post(body)
                 .build();
 

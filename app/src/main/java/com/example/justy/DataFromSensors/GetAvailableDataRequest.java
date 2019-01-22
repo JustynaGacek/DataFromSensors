@@ -12,7 +12,7 @@ import okhttp3.Request;
 
 public class GetAvailableDataRequest extends PrepareResponseBase {
 
-    private final String url = "https://station-controll-6.localtunnel.me/view_data_available/";
+    private final String endpoint = "view_data_available/";
 
     private JSONObject avaliableDataJSON;
 
@@ -30,7 +30,7 @@ public class GetAvailableDataRequest extends PrepareResponseBase {
     public void getDataAndSaveAsJsonArray(OkHttpClient client) {
 
         Request request = new Request.Builder()
-                .url(url)
+                .url(ServerAddress.url + endpoint)
                 .build();
 
         try {

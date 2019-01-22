@@ -12,7 +12,7 @@ import okhttp3.Request;
 
 public class GetAvaliableStationsRequest extends PrepareResponseBase {
 
-    private final String url = "https://station-controll-6.localtunnel.me/view_stations_available/";
+    private final String endpoint = "view_stations_available/";
 
     private JSONArray avaliableStationsJSON;
 
@@ -27,7 +27,7 @@ public class GetAvaliableStationsRequest extends PrepareResponseBase {
     public void getDataAndSaveAsJsonArray(OkHttpClient client) throws IOException {
 
         Request request = new Request.Builder()
-                .url(url)
+                .url(ServerAddress.url + endpoint)
                 .build();
 
         try {
